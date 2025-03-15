@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y git
 # Clone the repository
 RUN git clone https://github.com/leden-pacellico/stock-history.git .
 
+npm run git pull
+
 # Install dependencies
 RUN npm install
 
