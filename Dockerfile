@@ -13,6 +13,10 @@ RUN git clone https://github.com/leden-pacellico/stock-history.git .
 # Install dependencies
 RUN npm install
 
+RUN npm update
+
+RUN npm install
+
 # Build the application
 RUN npm run build
 
