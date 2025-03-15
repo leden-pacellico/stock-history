@@ -1,6 +1,5 @@
 import {Injectable} from '@nestjs/common';
 import yahooFinance from 'yahoo-finance2';
-import {HistoricalHistoryResult} from "yahoo-finance2/dist/esm/src/modules/historical";
 
 type QueryOptions = {
   period1: string | number | Date; // Start date for the query
@@ -22,7 +21,7 @@ export class StockService {
       period2: '2025-01-01',
       interval: '1mo'
     };
-    let result: Array<HistoricalHistoryResult>|undefined = undefined;
+    let result: Array<any>|undefined = undefined;
     try {
       result = await yahooFinance.historical(symbol, queryOptions);
     } catch (e) {
