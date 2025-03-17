@@ -18,7 +18,7 @@ export class StockService {
   async getStockData(symbol: string): Promise<any> {
     const queryOptions:QueryOptions = {
       period1: '2020-01-01',
-      period2: '2025-01-01',
+      period2: new Date().toISOString().slice(0, 10),
       interval: '1mo'
     };
     let result: Array<any>|undefined = undefined;
@@ -29,13 +29,11 @@ export class StockService {
       try {
         result = await yahooFinance.historical(shortSymbol, queryOptions);
       } catch (e) {
-        console.log(`could not resolve ${symbol}`);
-        console.log(await yahooFinance.search('stock code like '+symbol));
+        console.log(`could not resolve ${symbol} or ${shortSymbol}`);
       }
     }
     if (result === undefined) {
       result = [];
-
     }
     return result;
   }
