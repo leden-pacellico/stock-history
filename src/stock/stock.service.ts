@@ -1,5 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import yahooFinance from 'yahoo-finance2';
+import {Quote} from "yahoo-finance2/dist/esm/src/modules/quote";
 
 type QueryOptions = {
   period1: string | number | Date; // Start date for the query
@@ -15,7 +16,7 @@ type QueryOptions = {
 export class StockService {
 
 
-  async getStockData(symbol: string): Promise<any> {
+  async getStockHistory(symbol: string): Promise<any> {
     const queryOptions:QueryOptions = {
       period1: '2020-01-01',
       period2: new Date().toISOString().slice(0, 10),
@@ -36,6 +37,16 @@ export class StockService {
       result = [];
     }
     return result;
+  }
+
+  async getCurrentPrice(symbol: string) : Promise<Quote|null> {
+    let quote: Quote|undefined;
+    try {
+      quote = await yahooFinance.quote(symbol);
+    } catch (e) {
+      return null;
+    }
+    return quote;
   }
 
 }
